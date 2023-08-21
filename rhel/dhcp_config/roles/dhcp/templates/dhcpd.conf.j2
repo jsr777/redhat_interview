@@ -6,8 +6,8 @@ subnet 10.0.0.0 netmask 255.255.255.0 {
 }
 
 {% for host in dhcp_hosts %}
-host {{ host.hostname }} {
-  hardware ethernet {{ host.mac }};
-  fixed-address {{ host.ip }};
+host {{ host.HOSTNAME }} {
+  hardware ethernet {{ host.MAC }};
+  fixed-address {{ host.IP }};
 }
 {% endfor %}
