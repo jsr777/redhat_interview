@@ -3,6 +3,7 @@
 - name: Read Hosts
   gather_facts: True
   hosts: dhcp
+  file: config.csv
 
   tasks:
   - name: Load CSV file
@@ -11,9 +12,9 @@
       ip_address: "{{ csvline[1] }}"
       mac_address: "{{ csvline[2] }}"
     vars:
-      csvline: ¨{{ lookup('csvfile', file='config.csv', delimiter=',') }}¨
+      csvline: ¨{{ lookup('csvfile', delimiter=',') }}¨
     delegate_to: localhost
-    
+
   - debug:
       msg: "{{ hostname }}  {{ ip_address }}  {{ mac_address }}"
 
