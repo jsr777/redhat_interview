@@ -1,7 +1,7 @@
 ---
 - name: Install DHCP package
   yum:
-    name: dhcp
+    name: dhcp-server
     state: present
 
 - name: Copy DHCP configuration file
