@@ -4,9 +4,9 @@
   
   tasks:
     - name: copy csv file
-    copy:
-      src: hosts.csv
-      dest: /tmp/hosts.csv
+      copy:
+        src: hosts.csv
+        dest: /tmp/hosts.csv
 
     - name: Read CSV file
       set_fact:
