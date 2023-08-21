@@ -38,7 +38,7 @@
       dest: /var/www/html/index.html
     notify: Restart Apache
 
-handlers:
+  handlers:
     - name: Restart Apache
       systemd:
         name: httpd
