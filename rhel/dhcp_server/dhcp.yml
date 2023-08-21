@@ -14,5 +14,5 @@
       csvline: ¨{{ lookup('csvfile', file='config.csv', delimiter=',') }}¨
       
   - debug:
-      msg: "{{ 'hostname'  'ip_address'  'mac_address' }}"
+      msg: "'hostname'  'ip_address'  'mac_address'"
 
