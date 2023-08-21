@@ -3,14 +3,12 @@
   hosts: dhcp
   
   tasks:
-    - name: Read CSV file
-      csvfile:
-        path: dhcp_config/hosts.csv
-        delimiter: ','
+    - name: Execute CSV Reading Script
+      script: scripts/read_csv.py
       register: dhcp_hosts
 
     - name: Include DHCP Role
       include_role:
         name: dhcp
       vars:
-        dhcp_hosts: "{{ dhcp_hosts.list }}"
+        dhcp_hosts: "{{ dhcp_hosts.stdout_lines }}"
