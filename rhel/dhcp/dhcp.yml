@@ -16,14 +16,11 @@
       notify: Restart DHCP service
 
     - name: Read DHCP host data from CSV
-      csvfile:
+      include_csv:
         path: files/hosts.csv
-        delimiter: ','
-      register: csv_data
-
-    - name: Create DHCP host list
-      set_fact:
-        dhcp_hosts: "{{ csv_data.list }}"
+        key: HOSTNAME
+      loop_control:
+        loop_var: dhcp_host
 
     - name: Generate and copy DHCP configuration
       template:
