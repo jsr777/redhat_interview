@@ -1,17 +1,14 @@
 ---
-
 - name: Read Hosts
   hosts: dhcp
-  
+
   tasks:
   - read_csv:
-        path: config.csv
-        key: HOSTNAME
-      register: vms
-    - debug:
-        msg: "{{ item.key }}:
-              {{ item.value.HOSTNAME }},
-              {{ item.value.IP }},
-              {{ item.value.MAC }}"
-      loop: "{{ vms.dict|dict2items }}"
+      path: config.csv
+    register: hostlist
 
+  - debug: 
+      msg: "{{ host.HOSTNAME }} {{ host.IP }} {{ host.MAC }}"
+    loop: "{{ hostlist.list }}"
+    loop_control:
+      loop_var: host
