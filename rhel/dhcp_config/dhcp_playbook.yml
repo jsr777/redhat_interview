@@ -5,7 +5,7 @@
   tasks:
     - name: Read CSV file
       set_fact:
-        dhcp_hosts: "{{ lookup('csvfile', 'dhcp_config/hosts.csv', delimiter=',') }}"
+        dhcp_hosts: "{{ lookup('csvfile', 'files/hosts.csv', delimiter=',') }}"
 
     - name: Include DHCP Role
       include_role:
