@@ -12,8 +12,8 @@
       mac_address: "{{ csvline[2] }}"
     vars:
       csvline: ¨{{ lookup('csvfile', file='config.csv', delimiter=',') }}¨
-    msg: "{{ hostname }}  {{ ip_address }}  {{ mac_address }}"
-
+    delegate_to: localhost
+    
   - debug:
       msg: "{{ hostname }}  {{ ip_address }}  {{ mac_address }}"
 
