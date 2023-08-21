@@ -31,8 +31,13 @@
       name: httpd
       enabled: true
       state: started
+
   - name: deploy index.html
     copy:
       src: index.html
       dest: /var/www/html/index.html
-    notify: apache-restart
+
+  - name: apache-restart
+    service:
+      name: httpd
+      state: restarted
