@@ -6,14 +6,20 @@
 
   tasks:
   - name: Load CSV file
-    read_csv:
-      path: config.csv
-      delimiter: ","
-    register: hostlist
+
+    debug:
+      msg: {{ lookup('csvfile', file='config.csv', delimiter=',') }}
 
 
-  - debug: 
-      msg: "hostname: {{ host.HOSTNAME }} IP:{{ host.IP }} MAC:{{ host.MAC }}"
-    loop: "{{ hostlist.list }}"
-    loop_control:
-      loop_var: host
+
+  #  read_csv:
+  #    path: config.csv
+  #    delimiter: ","
+  #  register: hostlist
+
+
+  #- debug: 
+  #    msg: "hostname: {{ host.HOSTNAME }} IP:{{ host.IP }} MAC:{{ host.MAC }}"
+  #  loop: "{{ hostlist.list }}"
+  #  loop_control:
+  #    loop_var: host
