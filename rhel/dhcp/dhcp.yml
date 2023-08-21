@@ -27,14 +27,9 @@
         dhcp_hosts: "{{ dhcp_hosts + [{'hostname': item.split(',')[0], 'ip': item.split(',')[1], 'mac': item.split(',')[2]}] }}"
       loop: "{{ csv_data.stdout_lines[1:] }}"
 
-    - name: Copy Template
-      copy:
-        src: dhcpd.conf.j2
-        dest: /tmp/dhcpd.conf.j2
-    
     - name: Configure DHCP service
       template:
-        remote_src: /tmp/dhcpd.conf.j2
+        src: dhcp.conf.j2
         dest: /etc/dhcp/dhcpd.conf
         mode: '0644'
       notify: Restart DHCP service
