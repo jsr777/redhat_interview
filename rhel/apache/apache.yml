@@ -1,6 +1,6 @@
 ---
 - name: Apache server installed
-  hosts: web
+  hosts: rhel-server
 
   tasks:
   - name: latest Apache version installed
