@@ -1,14 +1,14 @@
 ---
 - name: Configure DHCP Server
-  hosts: dhcp
-  
+  hosts: localhost
+  gather_facts: no
   tasks:
-    - name: Execute CSV Reading Script
-      script: scripts/read_csv.py
-      register: dhcp_hosts
+    - name: Read CSV file
+      set_fact:
+        dhcp_hosts: "{{ lookup('csvfile', 'dhcp_config/hosts.csv', delimiter=',') }}"
 
     - name: Include DHCP Role
       include_role:
         name: dhcp
       vars:
-        dhcp_hosts: "{{ dhcp_hosts.stdout_lines }}"
+        dhcp_hosts: "{{ dhcp_hosts }}"
