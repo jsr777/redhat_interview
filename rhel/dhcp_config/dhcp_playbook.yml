@@ -1,10 +1,10 @@
 ---
 - name: Configure DHCP Server
   hosts: dhcp
-  gather_facts: no
+  
   tasks:
     - name: Read CSV file
-      read_csv:
+      csvfile:
         path: dhcp_config/hosts.csv
         delimiter: ','
       register: dhcp_hosts
