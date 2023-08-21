@@ -9,25 +9,30 @@
         name: dhcp-server
         state: present
 
+    - name: Start and enable DHCP service
+      systemd:
+        name: dhcpd
+        state: started
+        enabled: yes
+
     - name: Configure DHCP service
       template:
         src: dhcpd.conf.j2
         dest: /etc/dhcp/dhcpd.conf
       notify: Restart DHCP service
-
+      
     - name: Read DHCP host data from CSV
-      include_csv:
-        path: files/hosts.csv
-        key: HOSTNAME
-      loop_control:
-        loop_var: dhcp_host
+      shell: cat files/hosts.csv
+      register: csv_data
 
-    - name: Generate and copy DHCP configuration
-      template:
-        src: templates/dhcpd.conf.j2
-        dest: /etc/dhcp/dhcpd.conf
-        mode: '0644'
-      notify: Restart DHCP service
+    - name: Create DHCP host list
+      set_fact:
+        dhcp_hosts: []
+
+    - name: Process CSV data
+      set_fact:
+        dhcp_hosts: "{{ dhcp_hosts + [{'hostname': item.split(',')[0], 'ip': item.split(',')[1], 'mac': item.split(',')[2]}] }}"
+      loop: "{{ csv_data.stdout_lines[1:] }}"
 
   handlers:
     - name: Restart DHCP service
