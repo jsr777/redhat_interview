@@ -10,7 +10,7 @@
         state: present
 
     - name: Read DHCP host data from CSV
-      shell: cat files/hosts.csv
+      shell: cat hosts.csv
       register: csv_data
 
     - name: Create DHCP host list
@@ -33,7 +33,7 @@
         name: dhcpd
         state: started
         enabled: yes
-        
+
   handlers:
     - name: Restart DHCP service
       systemd:
