@@ -5,7 +5,7 @@
   hosts: dhcp
 
   tasks:
-  - community.general.read_csv:
+  - read_csv:
       path: config.csv
     register: hostlist
 
