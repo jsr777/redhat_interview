@@ -1,0 +1,38 @@
+---
+- name: DHCP server installed
+  hosts: web
+
+  tasks:
+  - name: latest DHCP version installed
+    yum:
+      name: dhcp
+      state: latest
+
+  - name: latest firewalld version installed
+    yum:
+      name: firewalld
+      state: latest
+
+  - name: firewalld enabled and running
+    service:
+      name: firewalld
+      enabled: true
+      state: started
+
+  - name: firewalld permits DHCP service
+    firewalld:
+      service: dhcpd
+      permanent: true
+      state: enabled
+      immediate: yes
+
+  - name: DHCP enabled and running
+    service:
+      name: dhcpd
+      enabled: true
+      state: started
+  - name: deploy index.html
+    copy:
+      src: index.html
+      dest: /var/www/html/index.html
+    notify: dhpcd-restart
