@@ -29,7 +29,7 @@
 
     - name: Configure DHCP service
       template:
-        src: templates/dhcpd.conf.j2
+        src: dhcpd.conf.j2
         dest: /etc/dhcp/dhcpd.conf
         mode: '0644'
       notify: Restart DHCP service
