@@ -1,0 +1,16 @@
+---
+- name: Configure DHCP Server
+  hosts: dhcp
+  gather_facts: no
+  tasks:
+    - name: Read CSV file
+      read_csv:
+        path: dhcp_config/hosts.csv
+        delimiter: ','
+      register: dhcp_hosts
+
+    - name: Include DHCP Role
+      include_role:
+        name: dhcp
+      vars:
+        dhcp_hosts: "{{ dhcp_hosts.list }}"

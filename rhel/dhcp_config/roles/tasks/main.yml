@@ -1,0 +1,16 @@
+---
+- name: Install DHCP package
+  yum:
+    name: dhcp
+    state: present
+
+- name: Copy DHCP configuration file
+  template:
+    src: dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+
+- name: Start and enable DHCP service
+  systemd:
+    name: dhcpd
+    state: started
+    enabled: yes
