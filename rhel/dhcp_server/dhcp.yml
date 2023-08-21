@@ -7,11 +7,11 @@
   - read_csv:
         path: config.csv
         key: HOSTNAME
-      register: host
+      register: vms
     - debug:
         msg: "{{ item.key }}:
               {{ item.value.HOSTNAME }},
               {{ item.value.IP }},
               {{ item.value.MAC }}"
-      loop: "{{ host.dict|dict2items }}"
+      loop: "{{ vms.dict|dict2items }}"
 
