@@ -1,6 +1,6 @@
 ---
 - name: DHCP server installed
-  hosts: web
+  hosts: dhcp
 
   tasks:
   - name: latest DHCP version installed
