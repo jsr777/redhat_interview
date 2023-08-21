@@ -1,0 +1,4 @@
+HOSTNAME,IP,MAC
+host001,10.0.0.10,aa:bb:cc:dd:ee:f1
+host002,10.0.0.11,aa:bb:cc:dd:ee:f2
+host003,10.0.0.12,aa:bb:cc:dd:ee:f3

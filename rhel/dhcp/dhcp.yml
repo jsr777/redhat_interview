@@ -1,0 +1,39 @@
+---
+- name: Install DHCP Server
+  hosts: dhcp
+  become: yes
+
+  tasks:
+    - name: Install DHCP packages
+      yum:
+        name: dhcp-server
+        state: present
+
+    - name: Configure DHCP service
+      template:
+        src: dhcpd.conf.j2
+        dest: /etc/dhcp/dhcpd.conf
+      notify: Restart DHCP service
+
+    - name: Read DHCP host data from CSV
+      csvfile:
+        path: files/hosts.csv
+        delimiter: ','
+      register: csv_data
+
+    - name: Create DHCP host list
+      set_fact:
+        dhcp_hosts: "{{ csv_data.list }}"
+
+    - name: Generate and copy DHCP configuration
+      template:
+        src: templates/dhcpd.conf.j2
+        dest: /etc/dhcp/dhcpd.conf
+        mode: '0644'
+      notify: Restart DHCP service
+
+  handlers:
+    - name: Restart DHCP service
+      systemd:
+        name: dhcpd
+        state: restarted
