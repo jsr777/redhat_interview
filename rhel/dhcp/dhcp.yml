@@ -9,13 +9,13 @@
         name: dhcp-server
         state: present
 
-    - name: deploy index.html
+    - name: Copy CSV File
       copy:
         src: hosts.csv
         dest: /tmp/hosts.csv
 
     - name: Read DHCP host data from CSV
-      shell: cat /hosts/hosts.csv
+      shell: cat /tmp/hosts.csv
       register: csv_data
 
     - name: Create DHCP host list
