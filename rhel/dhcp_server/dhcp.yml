@@ -8,5 +8,5 @@
   - name: Load CSV file
 
     debug:
-      msg: {{ lookup('csvfile', file='config.csv', delimiter=',') }}
+      msg: ¨{{ lookup('csvfile', file='config.csv', delimiter=',') }}¨
 
