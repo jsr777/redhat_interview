@@ -36,8 +36,10 @@
     copy:
       src: index.html
       dest: /var/www/html/index.html
+    notify: Restart Apache
 
-  - name: apache-restart
-    service:
-      name: httpd
-      state: restarted
+handlers:
+    - name: Restart Apache
+      systemd:
+        name: httpd
+        state: restarted
